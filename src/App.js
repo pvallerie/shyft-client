@@ -11,6 +11,7 @@ import SignOut from './components/SignOut/SignOut'
 import ChangePassword from './components/ChangePassword/ChangePassword'
 
 import IndexAllBikes from './components/Bikes/IndexAllBikes/IndexAllBikes'
+import IndexUserBikes from './components/Bikes/IndexUserBikes/IndexUserBikes'
 
 class App extends Component {
   constructor (props) {
@@ -69,6 +70,9 @@ class App extends Component {
           )} />
           <AuthenticatedRoute user={user} path='/index-all-bikes' render={() => (
             <IndexAllBikes msgAlert={this.msgAlert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} path='/index-user-bikes' render={() => (
+            <IndexUserBikes msgAlert={this.msgAlert} user={user} />
           )} />
         </main>
       </Fragment>
