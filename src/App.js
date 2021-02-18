@@ -12,6 +12,7 @@ import ChangePassword from './components/ChangePassword/ChangePassword'
 
 import IndexAllBikes from './components/Bikes/IndexAllBikes/IndexAllBikes'
 import IndexUserBikes from './components/Bikes/IndexUserBikes/IndexUserBikes'
+import CreateBike from './components/Bikes/CreateBike/CreateBike'
 
 class App extends Component {
   constructor (props) {
@@ -73,6 +74,9 @@ class App extends Component {
           )} />
           <AuthenticatedRoute user={user} path='/index-user-bikes' render={() => (
             <IndexUserBikes msgAlert={this.msgAlert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} path='/create-bike' render={() => (
+            <CreateBike msgAlert={this.msgAlert} user={user} />
           )} />
         </main>
       </Fragment>

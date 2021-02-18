@@ -2,14 +2,16 @@ import React, { useState, useEffect, Fragment } from 'react'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
 
+import CreateBike from '../CreateBike/CreateBike'
+
 import { indexAllBikes } from '../../../api/bikes'
 
 const IndexUserBikes = props => {
+  const { user } = props
   const [userBikes, setUserBikes] = useState([])
+  const [showBikeFormModal, setShowBikeFormModal] = useState(false)
 
   useEffect(() => {
-    const { user } = props
-
     // retrieve all bikes from API
     indexAllBikes(user)
       .then(res => {
@@ -34,12 +36,30 @@ const IndexUserBikes = props => {
     </Card>
   ))
 
+  if (showBikeFormModal) {
+    return (
+      <Fragment>
+        <CreateBike
+          user={user}
+        />
+        <Button
+          variant="primary"
+          type="button"
+          onClick={() => setShowBikeFormModal(true)}
+        >
+            Add Bike
+        </Button>
+        <div>{bikesJsx}</div>
+      </Fragment>
+    )
+  }
+
   return (
     <Fragment>
       <Button
         variant="primary"
         type="button"
-        onClick={() => console.log('add new bike!')}
+        onClick={() => setShowBikeFormModal(true)}
       >
           Add Bike
       </Button>
