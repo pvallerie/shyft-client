@@ -24,18 +24,16 @@ const CreateBike = props => {
   const handleChange = event => {
     event.persist()
 
-    setBikeInfo(() => {
-      return {
-        bikeInfo: { ...bikeInfo, [event.target.name]: event.target.value }
-      }
+    setBikeInfo(prevState => {
+      const updatedField = { [event.target.name]: event.target.value }
+      const editBike = Object.assign({}, prevState, updatedField)
+      return editBike
     })
   }
 
   const handleSubmit = event => {
     event.preventDefault()
     const { user } = props
-    console.log('this is user:', user)
-    console.log('this is bikeInfo:', bikeInfo)
 
     createBike(bikeInfo, user)
       .then(res => {
