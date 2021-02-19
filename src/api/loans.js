@@ -10,3 +10,14 @@ export const indexAllLoans = user => {
     }
   })
 }
+
+export const createLoan = (loanInfo, user) => {
+  return axios({
+    url: apiUrl + '/loans',
+    method: 'POST',
+    headers: {
+      'Authorization': `Token ${user.token}`
+    },
+    data: { loan: loanInfo }
+  })
+}

@@ -3,19 +3,35 @@ import { withRouter, Redirect } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
 
 import UpdateBike from '../UpdateBike/UpdateBike'
+import LoanForm from '../../Loans/LoanForm/LoanForm'
 
 import { showBike, deleteBike } from '../../../api/bikes'
+import { createLoan } from '../../../api/loans'
 
 const ShowBike = props => {
   const { user, match, msgAlert } = props
+
+  // bike state
   const [bike, setBike] = useState([])
   const [showBikeFormModal, setShowBikeFormModal] = useState(false)
   const [isDeleted, setIsDeleted] = useState(false)
+  const [loanCreated, setLoanCreated] = useState(false)
+
+  // loan state
+  const [loanInfo, setLoanInfo] = useState({
+    pickup_date: '',
+    dropoff_date: '',
+    bike: null
+  })
 
   useEffect(() => {
     showBike(match.params.id, user)
       .then(res => {
         setBike(res.data.bike)
+        return res
+      })
+      .then(res => {
+        setLoanInfo({ bike: res.data.bike.id })
         return res
       })
       .then(res => msgAlert({
@@ -45,6 +61,40 @@ const ShowBike = props => {
       }))
   }
 
+  const handleChange = event => {
+    event.persist()
+
+    setLoanInfo(prevState => {
+      const updatedField = { [event.target.name]: event.target.value }
+      const editLoan = Object.assign({}, prevState, updatedField)
+      return editLoan
+    })
+  }
+
+  const handleSubmit = event => {
+    event.preventDefault()
+
+    createLoan(loanInfo, user)
+      .then(res => {
+        console.log('res after creating loan:', res)
+        return res
+      })
+      .then(res => {
+        setLoanCreated(true)
+        return res
+      })
+      .then(res => msgAlert({
+        heading: 'Bike Rented Successfully',
+        message: `You'll be riding ${bike.name} on ${res.data.pickup_date}.`,
+        variant: 'success'
+      }))
+      .catch(error => msgAlert({
+        heading: 'Failed to Rent Bike',
+        message: `Failed to rent bike with error: ${error.message}`,
+        variant: 'danger'
+      }))
+  }
+
   const bikeJsx = (
     <div>
       <p>{bike.name}</p>
@@ -62,6 +112,10 @@ const ShowBike = props => {
 
   if (isDeleted) {
     return <Redirect to={'/index-user-bikes'} />
+  }
+
+  if (loanCreated) {
+    return <Redirect to={'/index-user-loans'} />
   }
 
   if (user.id === bike.owner) {
@@ -114,6 +168,12 @@ const ShowBike = props => {
     return (
       <Fragment>
         {bikeJsx}
+        <LoanForm
+          user={user}
+          loanInfo={loanInfo}
+          handleChange={handleChange}
+          handleSubmit={handleSubmit}
+        />
       </Fragment>
     )
   }

@@ -6,12 +6,6 @@ import { createBike } from '../../../api/bikes'
 
 const CreateBike = props => {
   const { user, msgAlert } = props
-  // [name, setName] = useState('')
-  // [type, setType] = useState('')
-  // [size, setSize] = useState('')
-  // [rate, setRate] = useState(null)
-  // [location, setLocation] = useState('')
-  // [owner, setOwner] = useState(null)
   const [bikeInfo, setBikeInfo] = useState({
     name: '',
     type: '',
@@ -34,8 +28,8 @@ const CreateBike = props => {
 
   const handleSubmit = event => {
     event.preventDefault()
-    // const { user, msgAlert } = props
-    console.log('this is props:', props)
+
+    console.log('bikeInfo at API call:', bikeInfo)
 
     createBike(bikeInfo, user)
       .then(res => {

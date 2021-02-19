@@ -29,9 +29,9 @@ const IndexUserLoans = props => {
   const loansJsx = userLoans.map(loan => (
     <Card key={loan.id} className='content-bg' style={{ border: '1px solid #cbcbcb', margin: '10px', padding: '10px', width: '100%', marginTop: '10px' }}>
       <Card.Body>
-        <Card.Title>Loan for {loan.bike.name}</Card.Title>
+        <Card.Title>Loan for {loan.bike}</Card.Title>
         <Card.Subtitle className="mb-2 text-muted">Owner: {loan.bike.owner}</Card.Subtitle>
-        <Card.Text>Pick-up Date: ${loan.pickup_date} /day</Card.Text>
+        <Card.Text>Pick-up Date: {loan.pickup_date}</Card.Text>
         <Card.Text>Drop-off Date: {loan.dropoff_date}</Card.Text>
         <Card.Text>Location: {loan.bike.location}</Card.Text>
         {/* <Card.Link href={`#bikes/${bike.id}`}>See Details</Card.Link> */}
