@@ -11,6 +11,16 @@ export const indexAllBikes = user => {
   })
 }
 
+export const showBike = (id, user) => {
+  return axios({
+    url: apiUrl + '/bikes/' + id,
+    method: 'GET',
+    headers: {
+      'Authorization': `Token ${user.token}`
+    }
+  })
+}
+
 export const createBike = (bikeInfo, user) => {
   return axios({
     url: apiUrl + '/bikes',

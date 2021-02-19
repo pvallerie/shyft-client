@@ -24,7 +24,7 @@ const IndexAllBikes = props => {
         <Card.Text>Size: {bike.size}</Card.Text>
         <Card.Text>Type: {bike.type}</Card.Text>
         <Card.Text>Location: {bike.location}</Card.Text>
-        <Card.Link href={'#/index-all-bikes'}>See Details</Card.Link>
+        <Card.Link href={`#bikes/${bike.id}`}>See Details</Card.Link>
       </Card.Body>
     </Card>
   ))
