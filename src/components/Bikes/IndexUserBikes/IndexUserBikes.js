@@ -7,7 +7,7 @@ import CreateBike from '../CreateBike/CreateBike'
 import { indexAllBikes } from '../../../api/bikes'
 
 const IndexUserBikes = props => {
-  const { user } = props
+  const { user, msgAlert } = props
   const [userBikes, setUserBikes] = useState([])
   const [showBikeFormModal, setShowBikeFormModal] = useState(false)
 
@@ -20,6 +20,16 @@ const IndexUserBikes = props => {
         const filteredBikes = bikes.filter(bike => bike.owner === user.id)
         setUserBikes(filteredBikes)
       })
+      .then(() => msgAlert({
+        heading: 'Retrieved Bikes Successfully',
+        message: 'All bikes are currently displayed',
+        variant: 'success'
+      }))
+      .catch(error => msgAlert({
+        heading: 'Failed to Retrieve Bikes',
+        message: `Failed to Retrieve with error: ${error.message}`,
+        variant: 'danger'
+      }))
   }, [])
 
   const bikesJsx = userBikes.map(bike => (
@@ -41,6 +51,7 @@ const IndexUserBikes = props => {
       <Fragment>
         <CreateBike
           user={user}
+          msgAlert={msgAlert}
         />
         <Button
           variant="primary"
