@@ -10,3 +10,14 @@ export const indexAllBikes = user => {
     }
   })
 }
+
+export const createBike = (bikeInfo, user) => {
+  return axios({
+    url: apiUrl + '/bikes',
+    method: 'POST',
+    headers: {
+      'Authorization': `Token ${user.token}`
+    },
+    data: { bike: bikeInfo }
+  })
+}

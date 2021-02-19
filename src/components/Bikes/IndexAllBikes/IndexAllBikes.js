@@ -12,10 +12,6 @@ const IndexAllBikes = props => {
 
     // retrieve bikes from API
     indexAllBikes(user)
-      .then(res => {
-        console.log('this is res:', res)
-        return res
-      })
       .then(res => setBikes(res.data.bikes))
   }, [])
 
