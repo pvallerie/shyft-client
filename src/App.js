@@ -10,6 +10,11 @@ import SignIn from './components/SignIn/SignIn'
 import SignOut from './components/SignOut/SignOut'
 import ChangePassword from './components/ChangePassword/ChangePassword'
 
+import IndexAllBikes from './components/Bikes/IndexAllBikes/IndexAllBikes'
+import IndexUserBikes from './components/Bikes/IndexUserBikes/IndexUserBikes'
+import CreateBike from './components/Bikes/CreateBike/CreateBike'
+import ShowBike from './components/Bikes/ShowBike/ShowBike'
+
 class App extends Component {
   constructor (props) {
     super(props)
@@ -64,6 +69,18 @@ class App extends Component {
           )} />
           <AuthenticatedRoute user={user} path='/change-password' render={() => (
             <ChangePassword msgAlert={this.msgAlert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} path='/index-all-bikes' render={() => (
+            <IndexAllBikes msgAlert={this.msgAlert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} path='/index-user-bikes' render={() => (
+            <IndexUserBikes msgAlert={this.msgAlert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} path='/create-bike' render={() => (
+            <CreateBike msgAlert={this.msgAlert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} path='/bikes/:id' render={() => (
+            <ShowBike msgAlert={this.msgAlert} user={user} />
           )} />
         </main>
       </Fragment>
