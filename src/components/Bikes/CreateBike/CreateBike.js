@@ -36,15 +36,11 @@ const CreateBike = props => {
     const { user } = props
 
     createBike(bikeInfo, user)
-      .then(res => {
-        console.log('this is res:', res)
-        return res
-      })
       .then(res => setCreatedId(res.data.bike.id))
   }
 
   if (createdId) {
-    return <Redirect to={'/bikes/'} />
+    return <Redirect to={`/bikes/${createdId}`} />
   }
 
   return (

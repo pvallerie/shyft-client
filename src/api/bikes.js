@@ -11,7 +11,7 @@ export const indexAllBikes = user => {
   })
 }
 
-export const showBike = (id, user) => {
+export const showBike = async (id, user) => {
   return axios({
     url: apiUrl + '/bikes/' + id,
     method: 'GET',
@@ -24,6 +24,17 @@ export const showBike = (id, user) => {
 export const createBike = (bikeInfo, user) => {
   return axios({
     url: apiUrl + '/bikes',
+    method: 'POST',
+    headers: {
+      'Authorization': `Token ${user.token}`
+    },
+    data: { bike: bikeInfo }
+  })
+}
+
+export const updateBike = (bikeInfo, user, id) => {
+  return axios({
+    url: apiUrl + '/bikes/' + id,
     method: 'POST',
     headers: {
       'Authorization': `Token ${user.token}`
