@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button'
 
 import UpdateBike from '../UpdateBike/UpdateBike'
 
-import { showBike } from '../../../api/bikes'
+import { showBike, deleteBike } from '../../../api/bikes'
 
 const ShowBike = props => {
   const { user, match, msgAlert } = props
@@ -28,6 +28,11 @@ const ShowBike = props => {
         variant: 'danger'
       }))
   }, [])
+
+  const deleteThisBike = () => {
+    deleteBike(bike.id, user)
+      .then()
+  }
 
   const bikeJsx = (
     <div>
@@ -58,7 +63,14 @@ const ShowBike = props => {
             type="button"
             onClick={() => setShowBikeFormModal(true)}
           >
-              Edit Bike
+            Edit Bike
+          </Button>
+          <Button
+            variant="danger"
+            type="button"
+            onClick={deleteThisBike}
+          >
+            Delete Bike
           </Button>
           <div>{bikeJsx}</div>
         </Fragment>
@@ -71,7 +83,14 @@ const ShowBike = props => {
           type="button"
           onClick={() => setShowBikeFormModal(true)}
         >
-            Edit Bike
+          Edit Bike
+        </Button>
+        <Button
+          variant="danger"
+          type="button"
+          onClick={deleteThisBike}
+        >
+          Delete Bike
         </Button>
         <div>{bikeJsx}</div>
       </Fragment>

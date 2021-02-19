@@ -42,3 +42,13 @@ export const updateBike = (bikeInfo, user, id) => {
     data: { bike: bikeInfo }
   })
 }
+
+export const deleteBike = (id, user) => {
+  return axios({
+    url: apiUrl + '/bikes/' + id,
+    method: 'DELETE',
+    headers: {
+      'Authorization': `Token ${user.token}`
+    }
+  })
+}
