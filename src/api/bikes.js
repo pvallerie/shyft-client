@@ -35,7 +35,7 @@ export const createBike = (bikeInfo, user) => {
 export const updateBike = (bikeInfo, user, id) => {
   return axios({
     url: apiUrl + '/bikes/' + id,
-    method: 'POST',
+    method: 'PATCH',
     headers: {
       'Authorization': `Token ${user.token}`
     },

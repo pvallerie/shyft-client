@@ -14,7 +14,7 @@ const UpdateBike = props => {
     location: '',
     owner: null
   })
-  const [updatedId, setUpdatedId] = useState(null)
+  const [isUpdated, setIsUpdated] = useState(false)
 
   const handleChange = event => {
     event.persist()
@@ -30,15 +30,11 @@ const UpdateBike = props => {
     event.preventDefault()
 
     updateBike(bikeInfo, user, id)
-      .then(res => {
-        console.log('this is res:', res)
-        return res
-      })
-      .then(res => setUpdatedId(res.data.bike.id))
+      .then(res => setIsUpdated(true))
   }
 
-  if (updatedId) {
-    return <Redirect to={'/bikes/'} />
+  if (isUpdated) {
+    return <Redirect to={`/bikes/${id}`} />
   }
 
   return (
