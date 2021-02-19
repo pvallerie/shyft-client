@@ -5,7 +5,7 @@ import BikeForm from '../BikeForm/BikeForm'
 import { updateBike } from '../../../api/bikes'
 
 const UpdateBike = props => {
-  const { user, id } = props
+  const { user, id, msgAlert } = props
   const [bikeInfo, setBikeInfo] = useState({
     name: '',
     type: '',
@@ -31,10 +31,20 @@ const UpdateBike = props => {
 
     updateBike(bikeInfo, user, id)
       .then(res => setIsUpdated(true))
+      .then(() => msgAlert({
+        heading: 'Updated Bike Successfully',
+        message: `Successfully updated ${bikeInfo.name}`,
+        variant: 'success'
+      }))
+      .catch(error => msgAlert({
+        heading: 'Failed to Update Bike',
+        message: `Failed to update with error: ${error.message}`,
+        variant: 'danger'
+      }))
   }
 
   if (isUpdated) {
-    return <Redirect to={`/bikes/${id}`} />
+    return <Redirect to={'/index-user-bikes'} />
   }
 
   return (

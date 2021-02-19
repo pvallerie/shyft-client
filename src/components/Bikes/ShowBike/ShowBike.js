@@ -7,7 +7,7 @@ import UpdateBike from '../UpdateBike/UpdateBike'
 import { showBike } from '../../../api/bikes'
 
 const ShowBike = props => {
-  const { user, match } = props
+  const { user, match, msgAlert } = props
   const [bike, setBike] = useState([])
   const [showBikeFormModal, setShowBikeFormModal] = useState(false)
 
@@ -15,8 +15,18 @@ const ShowBike = props => {
     showBike(match.params.id, user)
       .then(res => {
         setBike(res.data.bike)
-        console.log('this is bike.owner 1:', bike.owner)
+        return res
       })
+      .then(res => msgAlert({
+        heading: 'Retrieved Bike Successfully',
+        message: `Now displaying ${res.data.bike.name}`,
+        variant: 'success'
+      }))
+      .catch(error => msgAlert({
+        heading: 'Failed to Retrieve Bike',
+        message: `Failed to Retrieve with error: ${error.message}`,
+        variant: 'danger'
+      }))
   }, [])
 
   const bikeJsx = (
@@ -41,6 +51,7 @@ const ShowBike = props => {
           <UpdateBike
             user={user}
             id={bike.id}
+            msgAlert={msgAlert}
           />
           <Button
             variant="primary"

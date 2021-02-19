@@ -8,11 +8,21 @@ const IndexAllBikes = props => {
   // const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
-    const { user } = props
+    const { user, msgAlert } = props
 
     // retrieve bikes from API
     indexAllBikes(user)
       .then(res => setBikes(res.data.bikes))
+      .then(() => msgAlert({
+        heading: 'Retrieved Bikes Successfully',
+        message: 'All bikes are currently displayed',
+        variant: 'success'
+      }))
+      .catch(error => msgAlert({
+        heading: 'Failed to Retrieve Bikes',
+        message: `Failed to Retrieve with error: ${error.message}`,
+        variant: 'danger'
+      }))
   }, [])
 
   const bikesJsx = bikes.map(bike => (
