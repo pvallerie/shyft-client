@@ -1,15 +1,16 @@
 import React, { useState, useEffect, Fragment } from 'react'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Redirect } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
 
 import UpdateBike from '../UpdateBike/UpdateBike'
 
-import { showBike } from '../../../api/bikes'
+import { showBike, deleteBike } from '../../../api/bikes'
 
 const ShowBike = props => {
   const { user, match, msgAlert } = props
   const [bike, setBike] = useState([])
   const [showBikeFormModal, setShowBikeFormModal] = useState(false)
+  const [isDeleted, setIsDeleted] = useState(false)
 
   useEffect(() => {
     showBike(match.params.id, user)
@@ -29,6 +30,21 @@ const ShowBike = props => {
       }))
   }, [])
 
+  const deleteThisBike = () => {
+    deleteBike(bike.id, user)
+      .then(() => setIsDeleted(true))
+      .then(res => msgAlert({
+        heading: 'Deleted Bike Successfully',
+        message: `${bike.name} has been successfully deleted.`,
+        variant: 'success'
+      }))
+      .catch(error => msgAlert({
+        heading: 'Failed to Delete Bike',
+        message: `Failed to delete with error: ${error.message}`,
+        variant: 'danger'
+      }))
+  }
+
   const bikeJsx = (
     <div>
       <p>{bike.name}</p>
@@ -42,6 +58,10 @@ const ShowBike = props => {
 
   if (!bike) {
     return 'loading...'
+  }
+
+  if (isDeleted) {
+    return <Redirect to={'/index-user-bikes'} />
   }
 
   if (user.id === bike.owner) {
@@ -58,7 +78,14 @@ const ShowBike = props => {
             type="button"
             onClick={() => setShowBikeFormModal(true)}
           >
-              Edit Bike
+            Edit Bike
+          </Button>
+          <Button
+            variant="danger"
+            type="button"
+            onClick={deleteThisBike}
+          >
+            Delete Bike
           </Button>
           <div>{bikeJsx}</div>
         </Fragment>
@@ -71,7 +98,14 @@ const ShowBike = props => {
           type="button"
           onClick={() => setShowBikeFormModal(true)}
         >
-            Edit Bike
+          Edit Bike
+        </Button>
+        <Button
+          variant="danger"
+          type="button"
+          onClick={deleteThisBike}
+        >
+          Delete Bike
         </Button>
         <div>{bikeJsx}</div>
       </Fragment>
