@@ -11,8 +11,12 @@ import { createLoan } from '../../../api/loans'
 const ShowBike = props => {
   const { user, match, msgAlert } = props
 
-  // bike state
-  const [bike, setBike] = useState([])
+  // bike states
+  const [bike, setBike] = useState({
+    owner: {
+      id: null
+    }
+  })
   const [showBikeFormModal, setShowBikeFormModal] = useState(false)
   const [isDeleted, setIsDeleted] = useState(false)
   const [loanCreated, setLoanCreated] = useState(false)
@@ -76,10 +80,6 @@ const ShowBike = props => {
 
     createLoan(loanInfo, user)
       .then(res => {
-        console.log('res after creating loan:', res)
-        return res
-      })
-      .then(res => {
         setLoanCreated(true)
         return res
       })
@@ -102,7 +102,7 @@ const ShowBike = props => {
       <p>{bike.size}</p>
       <p>{bike.rate}</p>
       <p>{bike.location}</p>
-      <p>{bike.owner}</p>
+      <p>{bike.owner.email}</p>
     </div>
   )
 
@@ -118,7 +118,7 @@ const ShowBike = props => {
     return <Redirect to={'/index-user-loans'} />
   }
 
-  if (user.id === bike.owner) {
+  if (user.id === bike.owner.id) {
     if (showBikeFormModal) {
       return (
         <Fragment>
