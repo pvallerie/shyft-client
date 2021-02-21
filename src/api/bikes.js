@@ -11,7 +11,7 @@ export const indexAllBikes = user => {
   })
 }
 
-export const showBike = async (id, user) => {
+export const showBike = (id, user) => {
   return axios({
     url: apiUrl + '/bikes/' + id,
     method: 'GET',
