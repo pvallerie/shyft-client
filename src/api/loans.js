@@ -11,6 +11,16 @@ export const indexAllLoans = user => {
   })
 }
 
+export const showLoan = (id, user) => {
+  return axios({
+    url: apiUrl + '/loans/' + id,
+    method: 'GET',
+    headers: {
+      'Authorization': `Token ${user.token}`
+    }
+  })
+}
+
 export const createLoan = (loanInfo, user) => {
   return axios({
     url: apiUrl + '/loans',

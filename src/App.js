@@ -16,6 +16,7 @@ import CreateBike from './components/Bikes/CreateBike/CreateBike'
 import ShowBike from './components/Bikes/ShowBike/ShowBike'
 
 import IndexUserLoans from './components/Loans/IndexUserLoans/IndexUserLoans'
+import ShowLoan from './components/Loans/ShowLoan/ShowLoan'
 import LoanForm from './components/Loans/LoanForm/LoanForm'
 
 class App extends Component {
@@ -92,6 +93,9 @@ class App extends Component {
           {/* LOAN ROUTES: */}
           <AuthenticatedRoute user={user} path='/index-user-loans' render={() => (
             <IndexUserLoans msgAlert={this.msgAlert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} path='/loans/:id' render={() => (
+            <ShowLoan msgAlert={this.msgAlert} user={user} />
           )} />
           <AuthenticatedRoute user={user} path='/loan-form' render={() => (
             <LoanForm msgAlert={this.msgAlert} user={user} />
