@@ -34,7 +34,7 @@ const IndexUserLoans = props => {
         <Card.Text>Pick-up Date: {loan.pickup_date}</Card.Text>
         <Card.Text>Drop-off Date: {loan.dropoff_date}</Card.Text>
         <Card.Text>Location: {loan.bike.location}</Card.Text>
-        {/* <Card.Link href={`#bikes/${bike.id}`}>See Details</Card.Link> */}
+        <Card.Link href={`#loans/${loan.id}`}>See Details</Card.Link>
       </Card.Body>
     </Card>
   ))
