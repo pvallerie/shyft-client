@@ -1,1 +1,17 @@
+$primary: #262625;
+$secondary: #f5ebd5;
+$tertiary: #ff9659;
+
 @import '~bootstrap/scss/bootstrap';
+
+.bike-cards {
+  background-color: $secondary
+}
+
+.loan-cards {
+  background-color: $secondary
+}
+
+.buttons {
+  background-color: $tertiary
+}

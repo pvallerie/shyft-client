@@ -5,6 +5,8 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
 
+import '../../../index.scss'
+
 const BikeForm = props => {
   const { handleSubmit, handleChange } = props
   const [showBikeFormModal, setShowBikeFormModal] = useState(true)
@@ -28,7 +30,7 @@ const BikeForm = props => {
       backdrop="static"
       keyboard={false}
     >
-      <Modal.Header style={{ color: '#fff', backgroundColor: '#114b5f' }} closeButton>
+      <Modal.Header style={{ color: '$primary', backgroundColor: '$primary' }} closeButton>
         <Modal.Title>Add a Bike</Modal.Title>
       </Modal.Header>
       <Modal.Body style={{ backgroundColor: '#f3e9d2' }}>
