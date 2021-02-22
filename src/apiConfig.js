@@ -1,6 +1,6 @@
 let apiUrl
 const apiUrls = {
-  production: 'https://shyft-api.herokuapp.com/',
+  production: 'https://shyft-api.herokuapp.com',
   development: 'http://localhost:8000'
 }
 
