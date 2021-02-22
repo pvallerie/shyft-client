@@ -3,7 +3,7 @@ import { withRouter, Redirect } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 
-import { showLoan, updateLoan } from '../../../api/loans'
+import { showLoan, updateLoan, deleteLoan } from '../../../api/loans'
 
 const ShowLoan = props => {
   const { user, match, msgAlert } = props
@@ -18,7 +18,7 @@ const ShowLoan = props => {
     dropoff_date: ''
   })
   const [showEditLoanForm, setShowEditLoanForm] = useState(false)
-  const [loanUpdated, setLoanUpdated] = useState(false)
+  const [loanUpdatedOrDeleted, setLoanUpdatedOrDeleted] = useState(false)
 
   useEffect(() => {
     showLoan(match.params.id, user)
@@ -28,7 +28,7 @@ const ShowLoan = props => {
       })
       .then(res => msgAlert({
         heading: 'Retrieved Loan Successfully',
-        message: `Now displaying ${res.data.bike.name}`,
+        message: `Now displaying ${res.data.loan.name}`,
         variant: 'success'
       }))
       .catch(error => msgAlert({
@@ -52,7 +52,7 @@ const ShowLoan = props => {
     event.preventDefault()
 
     updateLoan(loanInfo, user, loan.id)
-      .then(res => setLoanUpdated(true))
+      .then(res => setLoanUpdatedOrDeleted(true))
       .then(() => msgAlert({
         heading: 'Bike Rented Successfully',
         message: 'Your changes have been updated successfully.',
@@ -61,6 +61,21 @@ const ShowLoan = props => {
       .catch(error => msgAlert({
         heading: 'Failed to Update Loan',
         message: `Failed to update loan with error: ${error.message}`,
+        variant: 'danger'
+      }))
+  }
+
+  const deleteThisLoan = () => {
+    deleteLoan(loan.id, user)
+      .then(() => setLoanUpdatedOrDeleted(true))
+      .then(res => msgAlert({
+        heading: 'Deleted Loan Successfully',
+        message: `Loan for ${loan.bike.name} has been successfully deleted.`,
+        variant: 'success'
+      }))
+      .catch(error => msgAlert({
+        heading: 'Failed to Delete Bike',
+        message: `Failed to delete with error: ${error.message}`,
         variant: 'danger'
       }))
   }
@@ -79,7 +94,7 @@ const ShowLoan = props => {
     )
   }
 
-  if (loanUpdated) {
+  if (loanUpdatedOrDeleted) {
     return <Redirect to={'/index-user-loans'} />
   }
 
@@ -132,7 +147,7 @@ const ShowLoan = props => {
       <Button
         variant="danger"
         type="button"
-        onClick={console.log('delete loan')}
+        onClick={deleteThisLoan}
       >
         Delete Loan
       </Button>

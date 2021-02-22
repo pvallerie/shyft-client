@@ -42,3 +42,13 @@ export const updateLoan = (loanInfo, user, id) => {
     data: { loan: loanInfo }
   })
 }
+
+export const deleteLoan = (id, user) => {
+  return axios({
+    url: apiUrl + '/loans/' + id,
+    method: 'DELETE',
+    headers: {
+      'Authorization': `Token ${user.token}`
+    }
+  })
+}
