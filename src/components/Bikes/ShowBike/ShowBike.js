@@ -25,7 +25,7 @@ const ShowBike = props => {
   const [loanInfo, setLoanInfo] = useState({
     pickup_date: '',
     dropoff_date: '',
-    bike: null
+    bike: bike
   })
 
   useEffect(() => {
