@@ -1,5 +1,7 @@
 import React, { useState, useEffect, Fragment } from 'react'
 import Card from 'react-bootstrap/Card'
+import ListGroup from 'react-bootstrap/ListGroup'
+import ListGroupItem from 'react-bootstrap/ListGroupItem'
 
 import { indexAllLoans } from '../../../api/loans'
 
@@ -32,18 +34,22 @@ const IndexUserLoans = props => {
 
   if (loansLoaded === true && userLoans.length === 0) {
     loansJsx = (
-      <div>You have not rented any bikes yet! Click <a href={'#bikes/'}>here</a> to check some out.</div>
+      <div>You have not rented any bikes yet! Click <a href={'#/index-all-bikes'}>here</a> to check some out.</div>
     )
   } else {
     loansJsx = userLoans.map(loan => (
-      <Card key={loan.id} className='content-bg' style={{ border: '1px solid #cbcbcb', margin: '10px', padding: '10px', width: '100%', marginTop: '10px' }}>
+      <Card key={loan.id} className='content-bg loan-cards' style={{ border: '1px solid #cbcbcb', margin: '10px', padding: '10px', width: '100%', marginTop: '10px' }}>
         <Card.Body>
           <Card.Title>Loan for {loan.bike.name}</Card.Title>
           <Card.Subtitle className="mb-2 text-muted">Owner: {loan.bike.owner.email}</Card.Subtitle>
-          <Card.Text>Pick-up Date: {loan.pickup_date}</Card.Text>
-          <Card.Text>Drop-off Date: {loan.dropoff_date}</Card.Text>
-          <Card.Text>Location: {loan.bike.location}</Card.Text>
-          <Card.Link href={`#loans/${loan.id}`}>See Details</Card.Link>
+          <ListGroup className="list-group-flush">
+            <ListGroupItem style={{ backgroundColor: 'transparent' }}>Pickup Date: {loan.pickup_date}</ListGroupItem>
+            <ListGroupItem style={{ backgroundColor: 'transparent' }}>Dropoff Date: {loan.dropoff_date}</ListGroupItem>
+            <ListGroupItem style={{ backgroundColor: 'transparent' }}>Location: {loan.location}</ListGroupItem>
+          </ListGroup>
+          <div className='row' style={{ fontSize: '16px', marginTop: '15px', paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>
+            <Card.Link style={{ display: 'inline' }} href={`#loans/${loan.id}`}>See Details</Card.Link>
+          </div>
         </Card.Body>
       </Card>
     ))
