@@ -5,14 +5,14 @@ import BikeForm from '../BikeForm/BikeForm'
 import { updateBike } from '../../../api/bikes'
 
 const UpdateBike = props => {
-  const { user, id, msgAlert } = props
+  const { user, id, msgAlert, bike } = props
   const [bikeInfo, setBikeInfo] = useState({
-    name: '',
-    type: '',
-    size: '',
-    rate: null,
-    location: '',
-    owner: null
+    name: bike.name,
+    type: bike.type,
+    size: bike.size,
+    rate: bike.rate,
+    location: bike.location,
+    owner: bike.owner.id
   })
   const [isUpdated, setIsUpdated] = useState(false)
 
