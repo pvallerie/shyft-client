@@ -5,19 +5,15 @@ import BikeForm from '../BikeForm/BikeForm'
 import { createBike } from '../../../api/bikes'
 
 const CreateBike = props => {
-  // [name, setName] = useState('')
-  // [type, setType] = useState('')
-  // [size, setSize] = useState('')
-  // [rate, setRate] = useState(null)
-  // [location, setLocation] = useState('')
-  // [owner, setOwner] = useState(null)
+  const { user, msgAlert } = props
   const [bikeInfo, setBikeInfo] = useState({
     name: '',
     type: '',
     size: '',
     rate: null,
     location: '',
-    owner: null
+    owner: { id: user.id },
+    image: ''
   })
   const [createdId, setCreatedId] = useState(null)
 
@@ -33,18 +29,28 @@ const CreateBike = props => {
 
   const handleSubmit = event => {
     event.preventDefault()
-    const { user } = props
+
+    console.log('bikeInfo at API call:', bikeInfo)
 
     createBike(bikeInfo, user)
       .then(res => {
-        console.log('this is res:', res)
+        setCreatedId(res.data.bike.id)
         return res
       })
-      .then(res => setCreatedId(res.data.bike.id))
+      .then(res => msgAlert({
+        heading: 'Created Bike Successfully',
+        message: `Successfully Created ${res.data.bike.name}`,
+        variant: 'success'
+      }))
+      .catch(error => msgAlert({
+        heading: 'Failed to Create Bike',
+        message: `Failed to Create with error: ${error.message}`,
+        variant: 'danger'
+      }))
   }
 
   if (createdId) {
-    return <Redirect to={'/bikes/'} />
+    return <Redirect to={`/bikes/${createdId}`} />
   }
 
   return (

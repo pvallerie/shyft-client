@@ -31,3 +31,24 @@ export const createBike = (bikeInfo, user) => {
     data: { bike: bikeInfo }
   })
 }
+
+export const updateBike = (bikeInfo, user, id) => {
+  return axios({
+    url: apiUrl + '/bikes/' + id,
+    method: 'PATCH',
+    headers: {
+      'Authorization': `Token ${user.token}`
+    },
+    data: { bike: bikeInfo }
+  })
+}
+
+export const deleteBike = (id, user) => {
+  return axios({
+    url: apiUrl + '/bikes/' + id,
+    method: 'DELETE',
+    headers: {
+      'Authorization': `Token ${user.token}`
+    }
+  })
+}

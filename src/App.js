@@ -15,6 +15,10 @@ import IndexUserBikes from './components/Bikes/IndexUserBikes/IndexUserBikes'
 import CreateBike from './components/Bikes/CreateBike/CreateBike'
 import ShowBike from './components/Bikes/ShowBike/ShowBike'
 
+import IndexUserLoans from './components/Loans/IndexUserLoans/IndexUserLoans'
+import ShowLoan from './components/Loans/ShowLoan/ShowLoan'
+import LoanForm from './components/Loans/LoanForm/LoanForm'
+
 class App extends Component {
   constructor (props) {
     super(props)
@@ -58,6 +62,7 @@ class App extends Component {
           />
         ))}
         <main className="container">
+          {/* AUTH ROUTES: */}
           <Route path='/sign-up' render={() => (
             <SignUp msgAlert={this.msgAlert} setUser={this.setUser} />
           )} />
@@ -70,6 +75,8 @@ class App extends Component {
           <AuthenticatedRoute user={user} path='/change-password' render={() => (
             <ChangePassword msgAlert={this.msgAlert} user={user} />
           )} />
+
+          {/* BIKE ROUTES: */}
           <AuthenticatedRoute user={user} path='/index-all-bikes' render={() => (
             <IndexAllBikes msgAlert={this.msgAlert} user={user} />
           )} />
@@ -81,6 +88,17 @@ class App extends Component {
           )} />
           <AuthenticatedRoute user={user} path='/bikes/:id' render={() => (
             <ShowBike msgAlert={this.msgAlert} user={user} />
+          )} />
+
+          {/* LOAN ROUTES: */}
+          <AuthenticatedRoute user={user} path='/index-user-loans' render={() => (
+            <IndexUserLoans msgAlert={this.msgAlert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} path='/loans/:id' render={() => (
+            <ShowLoan msgAlert={this.msgAlert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} path='/loan-form' render={() => (
+            <LoanForm msgAlert={this.msgAlert} user={user} />
           )} />
         </main>
       </Fragment>

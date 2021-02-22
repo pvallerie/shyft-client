@@ -1,1 +1,28 @@
+$primary: #262625;
+$secondary: #f5ebd5;
+$tertiary: #ff9659;
+
+$light-grey: #dbdbdb;
+
+$embedded-form: $light-grey;
+
 @import '~bootstrap/scss/bootstrap';
+
+.bike-cards, .loan-cards {
+  background-color: $secondary;
+}
+
+.loan-cards {
+  background-color: $secondary;
+}
+
+.buttons {
+  background-color: $tertiary;
+}
+
+.loan-form {
+  background-color: $embedded-form;
+  border-radius: calc(0.25rem - 1px);
+  padding: 5px;
+  width: 300px;
+}

@@ -4,7 +4,9 @@ import Navbar from 'react-bootstrap/Navbar'
 
 const authenticatedOptions = (
   <Fragment>
+    <Nav.Link href="#/index-all-bikes">Home</Nav.Link>
     <Nav.Link href="#/index-user-bikes">My Bikes</Nav.Link>
+    <Nav.Link href="#/index-user-loans">My Loans</Nav.Link>
     <Nav.Link href="#change-password">Change Password</Nav.Link>
     <Nav.Link href="#sign-out">Sign Out</Nav.Link>
   </Fragment>
@@ -25,8 +27,8 @@ const unauthenticatedOptions = (
 
 const Header = ({ user }) => (
   <Navbar bg="primary" variant="dark" expand="md">
-    <Navbar.Brand href="#">
-      shyft-client
+    <Navbar.Brand href="#/index-all-bikes">
+      Shyft
     </Navbar.Brand>
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
     <Navbar.Collapse id="basic-navbar-nav">
