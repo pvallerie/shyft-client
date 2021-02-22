@@ -124,6 +124,7 @@ const ShowBike = props => {
         <Fragment>
           <UpdateBike
             user={user}
+            bike={bike}
             id={bike.id}
             msgAlert={msgAlert}
           />

@@ -1,10 +1,9 @@
 import React, { useState, useEffect, Fragment } from 'react'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Redirect } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
+import Form from 'react-bootstrap/Form'
 
-// import LoanForm from '../LoanForm/LoanForm'
-
-import { showLoan } from '../../../api/loans'
+import { showLoan, updateLoan } from '../../../api/loans'
 
 const ShowLoan = props => {
   const { user, match, msgAlert } = props
@@ -14,6 +13,12 @@ const ShowLoan = props => {
       name: null
     }
   })
+  const [loanInfo, setLoanInfo] = useState({
+    pickup_date: '',
+    dropoff_date: ''
+  })
+  const [showEditLoanForm, setShowEditLoanForm] = useState(false)
+  const [loanUpdated, setLoanUpdated] = useState(false)
 
   useEffect(() => {
     showLoan(match.params.id, user)
@@ -33,6 +38,33 @@ const ShowLoan = props => {
       }))
   }, [])
 
+  const handleChange = event => {
+    event.persist()
+
+    setLoanInfo(prevState => {
+      const updatedField = { [event.target.name]: event.target.value }
+      const editLoan = Object.assign({}, prevState, updatedField)
+      return editLoan
+    })
+  }
+
+  const handleSubmit = event => {
+    event.preventDefault()
+
+    updateLoan(loanInfo, user, loan.id)
+      .then(res => setLoanUpdated(true))
+      .then(() => msgAlert({
+        heading: 'Bike Rented Successfully',
+        message: 'Your changes have been updated successfully.',
+        variant: 'success'
+      }))
+      .catch(error => msgAlert({
+        heading: 'Failed to Update Loan',
+        message: `Failed to update loan with error: ${error.message}`,
+        variant: 'danger'
+      }))
+  }
+
   const loanJsx = (
     <div>
       <p>Bike: {loan.bike.name}</p>
@@ -47,13 +79,53 @@ const ShowLoan = props => {
     )
   }
 
+  if (loanUpdated) {
+    return <Redirect to={'/index-user-loans'} />
+  }
+
+  if (showEditLoanForm) {
+    return (
+      <Fragment>
+        {loanJsx}
+        <Form onSubmit={handleSubmit}>
+          <Form.Group controlId="formBasicPickUpDate">
+            <Form.Label>Pickup Date</Form.Label>
+            <Form.Control
+              type="date"
+              name="pickup_date"
+              placeholder="YYYY-MM-DD"
+              onChange={handleChange}
+            />
+          </Form.Group>
+
+          <Form.Group controlId="formBasicDropOffDate">
+            <Form.Label>Dropoff Date</Form.Label>
+            <Form.Control
+              type="date"
+              name="dropoff_date"
+              placeholder="YYYY-MM-DD"
+              onChange={handleChange}
+            />
+          </Form.Group>
+
+          <Button
+            variant="primary"
+            type="submit"
+          >
+            Submit Changes
+          </Button>
+        </Form>
+      </Fragment>
+    )
+  }
+
   return (
     <Fragment>
       {loanJsx}
       <Button
         variant="primary"
         type="button"
-        onClick={console.log('edit loan')}
+        onClick={() => setShowEditLoanForm(true)}
       >
         Edit Loan
       </Button>

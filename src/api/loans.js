@@ -31,3 +31,14 @@ export const createLoan = (loanInfo, user) => {
     data: { loan: loanInfo }
   })
 }
+
+export const updateLoan = (loanInfo, user, id) => {
+  return axios({
+    url: apiUrl + '/loans/' + id,
+    method: 'PATCH',
+    headers: {
+      'Authorization': `Token ${user.token}`
+    },
+    data: { loan: loanInfo }
+  })
+}
