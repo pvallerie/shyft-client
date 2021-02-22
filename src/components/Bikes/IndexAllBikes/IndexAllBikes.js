@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Card from 'react-bootstrap/Card'
+import ListGroup from 'react-bootstrap/ListGroup'
+import ListGroupItem from 'react-bootstrap/ListGroupItem'
 
 import { indexAllBikes } from '../../../api/bikes'
 
@@ -26,21 +28,29 @@ const IndexAllBikes = props => {
   }, [])
 
   const bikesJsx = bikes.map(bike => (
-    <Card key={bike.id} className='content-bg' style={{ border: '1px solid #cbcbcb', margin: '10px', padding: '10px', width: '100%', marginTop: '10px' }}>
-      <Card.Body>
-        <Card.Title>{bike.name}</Card.Title>
-        <Card.Subtitle className="mb-2 text-muted">Owner: {bike.owner.email}</Card.Subtitle>
-        <Card.Text>${bike.rate}/day</Card.Text>
-        <Card.Text>Size: {bike.size}</Card.Text>
-        <Card.Text>Type: {bike.type}</Card.Text>
-        <Card.Text>Location: {bike.location}</Card.Text>
-        <Card.Link href={`#bikes/${bike.id}`}>See Details</Card.Link>
+    <Card key={bike.id} className='content-bg col-5' style={{ border: '1px solid #cbcbcb', margin: '10px', padding: '10px', width: '100%', marginTop: '10px' }}>
+      <Card.Body style={{ padding: '0' }}>
+        <div style={{ height: '250px', objectFit: 'cover' }}>
+          <Card.Img variant="top" src="https://surlybikes.com/uploads/bikes/_medium_image/Troll_BK0337.jpg" />
+        </div>
+        <Card.Title style={{ marginTop: '4rem' }}>{bike.name}</Card.Title>
+        <div style={{ fontSize: '16px' }}>
+          <ListGroup className="list-group-flush">
+            <ListGroupItem>Size: {bike.size}</ListGroupItem>
+            <ListGroupItem>Type: {bike.type}</ListGroupItem>
+            <ListGroupItem>Location: {bike.location}</ListGroupItem>
+          </ListGroup>
+          <div className='row' style={{ fontSize: '16px', marginTop: '15px', paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>
+            <Card.Link style={{ display: 'inline' }} href={`#bikes/${bike.id}`}>See Details</Card.Link>
+            <Card.Text style={{ display: 'inline' }} className='ml-auto'>${bike.rate}/day</Card.Text>
+          </div>
+        </div>
       </Card.Body>
     </Card>
   ))
 
   return (
-    <div>{bikesJsx}</div>
+    <div className='row' style={{ justifyContent: 'center' }}>{bikesJsx}</div>
   )
 }
 

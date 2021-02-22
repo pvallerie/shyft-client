@@ -27,8 +27,8 @@ const unauthenticatedOptions = (
 
 const Header = ({ user }) => (
   <Navbar bg="primary" variant="dark" expand="md">
-    <Navbar.Brand href="#">
-      shyft-client
+    <Navbar.Brand href="#/index-all-bikes">
+      Shyft
     </Navbar.Brand>
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
     <Navbar.Collapse id="basic-navbar-nav">
