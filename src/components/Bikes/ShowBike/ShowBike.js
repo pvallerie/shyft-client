@@ -1,12 +1,15 @@
 import React, { useState, useEffect, Fragment } from 'react'
 import { withRouter, Redirect } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
+import Card from 'react-bootstrap/Card'
 
 import UpdateBike from '../UpdateBike/UpdateBike'
 import LoanForm from '../../Loans/LoanForm/LoanForm'
 
 import { showBike, deleteBike } from '../../../api/bikes'
 import { createLoan } from '../../../api/loans'
+
+import '../../../index.scss'
 
 const ShowBike = props => {
   const { user, match, msgAlert } = props
@@ -95,16 +98,61 @@ const ShowBike = props => {
       }))
   }
 
-  const bikeJsx = (
-    <div>
-      <p>{bike.name}</p>
-      <p>{bike.type}</p>
-      <p>{bike.size}</p>
-      <p>{bike.rate}</p>
-      <p>{bike.location}</p>
-      <p>{bike.owner.email}</p>
-    </div>
-  )
+  let bikeJsx
+
+  if (user.id === bike.owner.id) {
+    bikeJsx = (
+      <div>
+        <img src={bike.image} alt={bike.name} height="450px"></img>
+        <Card style={{ width: '100%' }}>
+          <Card.Body>
+            <Card.Title>{bike.name}</Card.Title>
+            <Card.Subtitle className="mb-2 text-muted">Owner: {bike.owner.email}</Card.Subtitle>
+            <Card.Text>{bike.type}</Card.Text>
+            <Card.Text>{bike.size}</Card.Text>
+            <Card.Text>{bike.rate}</Card.Text>
+            <Card.Text>{bike.location}</Card.Text>
+            <Button
+              variant="primary"
+              type="button"
+              onClick={() => setShowBikeFormModal(true)}
+            >
+              Edit Bike
+            </Button>
+            <Button
+              variant="danger"
+              type="button"
+              onClick={deleteThisBike}
+            >
+              Delete Bike
+            </Button>
+          </Card.Body>
+        </Card>
+      </div>
+    )
+  } else {
+    bikeJsx = (
+      <div>
+        <img src={bike.image} alt={bike.name} height="450px"></img>
+        <Card style={{ width: '100%' }}>
+          <Card.Body>
+            <Card.Title>{bike.name}</Card.Title>
+            <Card.Subtitle className="mb-2 text-muted">Owner: {bike.owner.email}</Card.Subtitle>
+            <Card.Text>{bike.type}</Card.Text>
+            <Card.Text>{bike.size}</Card.Text>
+            <Card.Text>{bike.rate}</Card.Text>
+            <Card.Text>{bike.location}</Card.Text>
+            <LoanForm
+              user={user}
+              loanInfo={loanInfo}
+              handleChange={handleChange}
+              handleSubmit={handleSubmit}
+            />
+          </Card.Body>
+        </Card>
+      </div>
+    )
+  }
 
   if (!bike) {
     return 'loading...'
@@ -118,66 +166,24 @@ const ShowBike = props => {
     return <Redirect to={'/index-user-loans'} />
   }
 
-  if (user.id === bike.owner.id) {
-    if (showBikeFormModal) {
-      return (
-        <Fragment>
-          <UpdateBike
-            user={user}
-            bike={bike}
-            id={bike.id}
-            msgAlert={msgAlert}
-          />
-          <Button
-            variant="primary"
-            type="button"
-            onClick={() => setShowBikeFormModal(true)}
-          >
-            Edit Bike
-          </Button>
-          <Button
-            variant="danger"
-            type="button"
-            onClick={deleteThisBike}
-          >
-            Delete Bike
-          </Button>
-          <div>{bikeJsx}</div>
-        </Fragment>
-      )
-    }
+  if (showBikeFormModal) {
     return (
       <Fragment>
-        <Button
-          variant="primary"
-          type="button"
-          onClick={() => setShowBikeFormModal(true)}
-        >
-          Edit Bike
-        </Button>
-        <Button
-          variant="danger"
-          type="button"
-          onClick={deleteThisBike}
-        >
-          Delete Bike
-        </Button>
+        <UpdateBike
+          user={user}
+          bike={bike}
+          id={bike.id}
+          msgAlert={msgAlert}
+        />
         <div>{bikeJsx}</div>
       </Fragment>
     )
-  } else {
-    return (
-      <Fragment>
-        {bikeJsx}
-        <LoanForm
-          user={user}
-          loanInfo={loanInfo}
-          handleChange={handleChange}
-          handleSubmit={handleSubmit}
-        />
-      </Fragment>
-    )
   }
+  return (
+    <Fragment>
+      <div>{bikeJsx}</div>
+    </Fragment>
+  )
 }
 
 export default withRouter(ShowBike)
