@@ -12,7 +12,8 @@ const CreateBike = props => {
     size: '',
     rate: null,
     location: '',
-    owner: null
+    owner: { id: user.id },
+    image: ''
   })
   const [createdId, setCreatedId] = useState(null)
 

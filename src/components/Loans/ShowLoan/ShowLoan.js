@@ -2,6 +2,7 @@ import React, { useState, useEffect, Fragment } from 'react'
 import { withRouter, Redirect } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
+import Card from 'react-bootstrap/Card'
 
 import { showLoan, updateLoan, deleteLoan } from '../../../api/loans'
 
@@ -10,7 +11,10 @@ const ShowLoan = props => {
   const [loan, setLoan] = useState({
     pickup_date: null,
     bike: {
-      name: null
+      name: null,
+      owner: {
+        email: ''
+      }
     }
   })
   const [loanInfo, setLoanInfo] = useState({
@@ -24,6 +28,10 @@ const ShowLoan = props => {
     showLoan(match.params.id, user)
       .then(res => {
         setLoan(res.data.loan)
+        return res
+      })
+      .then(res => {
+        console.log('this is res:', res)
         return res
       })
       .then(res => msgAlert({
@@ -82,9 +90,17 @@ const ShowLoan = props => {
 
   const loanJsx = (
     <div>
-      <p>Bike: {loan.bike.name}</p>
-      <p>Pickup date: {loan.pickup_date}</p>
-      <p>Dropoff date: {loan.dropoff_date}</p>
+      <img src={loan.bike.image} alt={loan.bike.name} height="450px" style={{ alignSelf: 'center', display: 'flex', justifyContent: 'center' }}></img>
+      <Card style={{ width: '100%' }}>
+        <Card.Body>
+          <Card.Title>{loan.bike.name}</Card.Title>
+          <Card.Subtitle className="mb-2 text-muted">Owner: {loan.bike.owner.email}</Card.Subtitle>
+          <Card.Text>{loan.bike.type}</Card.Text>
+          <Card.Text>{loan.bike.size}</Card.Text>
+          <Card.Text>{loan.bike.rate}</Card.Text>
+          <Card.Text>{loan.bike.location}</Card.Text>
+        </Card.Body>
+      </Card>
     </div>
   )
 

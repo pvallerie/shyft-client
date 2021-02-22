@@ -40,12 +40,12 @@ const IndexUserLoans = props => {
     loansJsx = userLoans.map(loan => (
       <Card key={loan.id} className='content-bg loan-cards' style={{ border: '1px solid #cbcbcb', margin: '10px', padding: '10px', width: '100%', marginTop: '10px' }}>
         <Card.Body>
+          <Card.Img variant="top" src={loan.bike.image} style={{ width: '200px', borderRadius: 'calc(0.25rem - 1px)' }} />
           <Card.Title>Loan for {loan.bike.name}</Card.Title>
-          <Card.Subtitle className="mb-2 text-muted">Owner: {loan.bike.owner.email}</Card.Subtitle>
           <ListGroup className="list-group-flush">
             <ListGroupItem style={{ backgroundColor: 'transparent' }}>Pickup Date: {loan.pickup_date}</ListGroupItem>
             <ListGroupItem style={{ backgroundColor: 'transparent' }}>Dropoff Date: {loan.dropoff_date}</ListGroupItem>
-            <ListGroupItem style={{ backgroundColor: 'transparent' }}>Location: {loan.location}</ListGroupItem>
+            <ListGroupItem style={{ backgroundColor: 'transparent' }}>Location: {loan.bike.location}</ListGroupItem>
           </ListGroup>
           <div className='row' style={{ fontSize: '16px', marginTop: '15px', paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>
             <Card.Link style={{ display: 'inline' }} href={`#loans/${loan.id}`}>See Details</Card.Link>

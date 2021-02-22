@@ -40,7 +40,7 @@ const IndexUserBikes = props => {
     <Card key={bike.id} className='content-bg col-5 bike-cards' style={{ border: '1px solid #cbcbcb', margin: '10px', padding: '10px', width: '100%', marginTop: '10px' }}>
       <Card.Body style={{ padding: '0' }}>
         <div style={{ height: '250px', objectFit: 'cover' }}>
-          <Card.Img variant="top" src="https://surlybikes.com/uploads/bikes/_medium_image/Troll_BK0337.jpg" />
+          <Card.Img variant="top" src={bike.image} style={{ borderRadius: 'calc(0.25rem - 1px)' }} />
         </div>
         <Card.Title style={{ marginTop: '4rem' }}>{bike.name}</Card.Title>
         <div style={{ fontSize: '16px' }}>

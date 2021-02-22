@@ -75,12 +75,23 @@ const BikeForm = props => {
             />
           </Form.Group>
 
-          <Form.Group controlId="formBasicSize">
+          <Form.Group controlId="formBasicLocation">
             <Form.Label>Location</Form.Label>
             <Form.Control
               type="text"
               name="location"
               placeholder="Location"
+              onChange={handleChange}
+            />
+          </Form.Group>
+
+          <Form.Group controlId="formBasicImage">
+            <Form.Label>Image</Form.Label>
+            <Form.Control
+              img="true"
+              type="text"
+              name="image"
+              placeholder="Link to image"
               onChange={handleChange}
             />
           </Form.Group>
