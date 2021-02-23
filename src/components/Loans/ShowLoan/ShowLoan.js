@@ -89,9 +89,9 @@ const ShowLoan = props => {
   }
 
   const loanJsx = (
-    <div>
-      <img src={loan.bike.image} alt={loan.bike.name} height="450px" style={{ alignSelf: 'center', display: 'flex', justifyContent: 'center' }}></img>
-      <Card style={{ width: '100%' }}>
+    <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
+      <img src={loan.bike.image} alt={loan.bike.name} style={{ height: '350px', borderRadius: 'calc(0.25rem - 1px)' }}></img>
+      <Card style={{ width: '100%', marginTop: '5px', backgroundColor: '#f5ebd5' }}>
         <Card.Body>
           <Card.Title>{loan.bike.name}</Card.Title>
           <Card.Subtitle className="mb-2 text-muted">Owner: {loan.bike.owner.email}</Card.Subtitle>
@@ -99,6 +99,23 @@ const ShowLoan = props => {
           <Card.Text>{loan.bike.size}</Card.Text>
           <Card.Text>{loan.bike.rate}</Card.Text>
           <Card.Text>{loan.bike.location}</Card.Text>
+          <div>
+            <Button
+              variant="primary"
+              type="button"
+              onClick={() => setShowEditLoanForm(true)}
+            >
+              Edit Loan
+            </Button>
+            <Button
+              variant="danger"
+              type="button"
+              onClick={deleteThisLoan}
+              style={{ marginLeft: '10px' }}
+            >
+              Delete Loan
+            </Button>
+          </div>
         </Card.Body>
       </Card>
     </div>
@@ -153,20 +170,6 @@ const ShowLoan = props => {
   return (
     <Fragment>
       {loanJsx}
-      <Button
-        variant="primary"
-        type="button"
-        onClick={() => setShowEditLoanForm(true)}
-      >
-        Edit Loan
-      </Button>
-      <Button
-        variant="danger"
-        type="button"
-        onClick={deleteThisLoan}
-      >
-        Delete Loan
-      </Button>
     </Fragment>
   )
 }
