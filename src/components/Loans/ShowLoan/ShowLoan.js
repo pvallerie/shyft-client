@@ -99,7 +99,11 @@ const ShowLoan = props => {
           <Card.Text>{loan.bike.size}</Card.Text>
           <Card.Text>{loan.bike.rate}</Card.Text>
           <Card.Text>{loan.bike.location}</Card.Text>
-          <div>
+          <div className="loan-form" style={{ borderRadius: 'calc(0.25rem - 1px)', border: '1px grey solid' }}>
+            <Card.Text>Pickup: {loan.pickup_date}</Card.Text>
+            <Card.Text>Dropoff: {loan.dropoff_date}</Card.Text>
+          </div>
+          <div style={{ marginTop: '10px' }}>
             <Button
               variant="primary"
               type="button"
