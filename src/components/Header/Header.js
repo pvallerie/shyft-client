@@ -1,14 +1,18 @@
 import React, { Fragment } from 'react'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
+import NavDropdown from 'react-bootstrap/NavDropdown'
 
 const authenticatedOptions = (
   <Fragment>
     <Nav.Link href="#/index-all-bikes">Home</Nav.Link>
-    <Nav.Link href="#/index-user-bikes">My Bikes</Nav.Link>
-    <Nav.Link href="#/index-user-loans">My Loans</Nav.Link>
-    <Nav.Link href="#change-password">Change Password</Nav.Link>
-    <Nav.Link href="#sign-out">Sign Out</Nav.Link>
+    <NavDropdown title="Account" id="collasible-nav-dropdown">
+      <NavDropdown.Item href="#/index-user-bikes">My Bikes</NavDropdown.Item>
+      <NavDropdown.Item href="#/index-user-loans">My Loans</NavDropdown.Item>
+      <NavDropdown.Item href="#change-password">Change Password</NavDropdown.Item>
+      <NavDropdown.Divider />
+      <NavDropdown.Item href="#sign-out">Sign Out</NavDropdown.Item>
+    </NavDropdown>
   </Fragment>
 )
 
@@ -25,20 +29,21 @@ const unauthenticatedOptions = (
 //   </Fragment>
 // )
 
-const Header = ({ user }) => (
-  <Navbar bg="primary" variant="dark" expand="md">
-    <Navbar.Brand href="#/index-all-bikes">
-      Shyft
-    </Navbar.Brand>
-    <Navbar.Toggle aria-controls="basic-navbar-nav" />
-    <Navbar.Collapse id="basic-navbar-nav">
-      <Nav className="ml-auto">
-        { user && <span className="navbar-text mr-2">Welcome, {user.email}</span>}
-        {/* { alwaysOptions } */ }
-        { user ? authenticatedOptions : unauthenticatedOptions }
-      </Nav>
-    </Navbar.Collapse>
-  </Navbar>
-)
-
+const Header = ({ user }) => {
+  return (
+    <Navbar bg="primary" variant="dark" expand="md">
+      <Navbar.Brand href="#/index-all-bikes">
+        Shyft
+      </Navbar.Brand>
+      <Navbar.Toggle aria-controls="basic-navbar-nav" />
+      <Navbar.Collapse id="basic-navbar-nav">
+        <Nav className="ml-auto">
+          {/* { alwaysOptions } */ }
+          { user ? authenticatedOptions : unauthenticatedOptions }
+          { user && <span className="navbar-text mr-2">Welcome, {user.email}</span>}
+        </Nav>
+      </Navbar.Collapse>
+    </Navbar>
+  )
+}
 export default Header

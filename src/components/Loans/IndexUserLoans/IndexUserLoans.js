@@ -34,21 +34,27 @@ const IndexUserLoans = props => {
 
   if (loansLoaded === true && userLoans.length === 0) {
     loansJsx = (
-      <div>You have not rented any bikes yet! Click <a href={'#/index-all-bikes'}>here</a> to check some out.</div>
+      <Card className='content-bg loan-cards' style={{ border: '1px solid #cbcbcb', margin: '10px', padding: '10px', width: '100%', marginTop: '10px' }}>
+        <Card.Text style={{ display: 'flex', alignSelf: 'center' }}>You have not rented any bikes yet! Click <a href={'#/index-all-bikes'} style={{ color: '#c43d16', marginLeft: '3px', marginRight: '3px' }}> here </a> to check some out.</Card.Text>
+      </Card>
     )
   } else {
     loansJsx = userLoans.map(loan => (
       <Card key={loan.id} className='content-bg loan-cards' style={{ border: '1px solid #cbcbcb', margin: '10px', padding: '10px', width: '100%', marginTop: '10px' }}>
-        <Card.Body>
-          <Card.Img variant="top" src={loan.bike.image} style={{ width: '200px', borderRadius: 'calc(0.25rem - 1px)' }} />
-          <Card.Title>Loan for {loan.bike.name}</Card.Title>
-          <ListGroup className="list-group-flush">
-            <ListGroupItem style={{ backgroundColor: 'transparent' }}>Pickup Date: {loan.pickup_date}</ListGroupItem>
-            <ListGroupItem style={{ backgroundColor: 'transparent' }}>Dropoff Date: {loan.dropoff_date}</ListGroupItem>
-            <ListGroupItem style={{ backgroundColor: 'transparent' }}>Location: {loan.bike.location}</ListGroupItem>
-          </ListGroup>
-          <div className='row' style={{ fontSize: '16px', marginTop: '15px', paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>
-            <Card.Link style={{ display: 'inline' }} href={`#loans/${loan.id}`}>See Details</Card.Link>
+        <Card.Body className="row">
+          <div className="col-4">
+            <Card.Img variant="top" src={loan.bike.image} style={{ width: '300px', borderRadius: 'calc(0.25rem - 1px)' }} />
+            <Card.Title style={{ marginTop: '10px' }}>Loan for {loan.bike.name}</Card.Title>
+          </div>
+          <div className="col-6" style={{ marginLeft: '25px', width: '400px', position: 'relative', left: '0px' }}>
+            <ListGroup className="list-group-flush">
+              <ListGroupItem style={{ backgroundColor: 'transparent' }}>Pickup Date: {loan.pickup_date}</ListGroupItem>
+              <ListGroupItem style={{ backgroundColor: 'transparent' }}>Dropoff Date: {loan.dropoff_date}</ListGroupItem>
+              <ListGroupItem style={{ backgroundColor: 'transparent' }}>Location: {loan.bike.location}</ListGroupItem>
+            </ListGroup>
+            <div className='row' style={{ fontSize: '16px', marginTop: '15px', paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>
+              <Card.Link style={{ display: 'inline' }} href={`#loans/${loan.id}`}>See Details</Card.Link>
+            </div>
           </div>
         </Card.Body>
       </Card>

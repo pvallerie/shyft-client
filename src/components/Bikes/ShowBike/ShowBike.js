@@ -102,52 +102,64 @@ const ShowBike = props => {
 
   if (user.id === bike.owner.id) {
     bikeJsx = (
-      <div>
-        <img src={bike.image} alt={bike.name} height="450px"></img>
-        <Card style={{ width: '100%' }}>
+      <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
+        <img src={bike.image} alt={bike.name} style={{ height: '350px', borderRadius: 'calc(0.25rem - 1px)' }}></img>
+        <Card style={{ width: '100%', marginTop: '5px', backgroundColor: '#f5ebd5' }}>
           <Card.Body>
-            <Card.Title>{bike.name}</Card.Title>
-            <Card.Subtitle className="mb-2 text-muted">Owner: {bike.owner.email}</Card.Subtitle>
-            <Card.Text>{bike.type}</Card.Text>
-            <Card.Text>{bike.size}</Card.Text>
-            <Card.Text>{bike.rate}</Card.Text>
-            <Card.Text>{bike.location}</Card.Text>
-            <Button
-              variant="primary"
-              type="button"
-              onClick={() => setShowBikeFormModal(true)}
-            >
-              Edit Bike
-            </Button>
-            <Button
-              variant="danger"
-              type="button"
-              onClick={deleteThisBike}
-            >
-              Delete Bike
-            </Button>
+            <div className="row">
+              <div className="mr-auto" style={{ display: 'inline', marginleft: '30px' }}>
+                <Card.Title>{bike.name}</Card.Title>
+                <Card.Subtitle className="mb-2 text-muted">Owner: {bike.owner.email}</Card.Subtitle>
+                <Card.Text>{bike.type}</Card.Text>
+                <Card.Text>Size {bike.size}</Card.Text>
+                <Card.Text>{bike.location}</Card.Text>
+                <Card.Text>${bike.rate}/day</Card.Text>
+              </div>
+              <Button
+                variant="primary"
+                type="button"
+                onClick={() => setShowBikeFormModal(true)}
+                className="show-bike-buttons ml-auto"
+                style={{ height: '40px' }}
+              >
+                Edit Bike
+              </Button>
+              <Button
+                variant="danger"
+                type="button"
+                onClick={deleteThisBike}
+                className="show-bike-buttons ml-auto"
+                style={{ height: '40px' }}
+              >
+                Delete Bike
+              </Button>
+            </div>
           </Card.Body>
         </Card>
       </div>
     )
   } else {
     bikeJsx = (
-      <div>
-        <img src={bike.image} alt={bike.name} height="450px"></img>
-        <Card style={{ width: '100%' }}>
+      <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
+        <img src={bike.image} alt={bike.name} style={{ height: '350px', borderRadius: 'calc(0.25rem - 1px)' }}></img>
+        <Card style={{ width: '100%', marginTop: '5px', backgroundColor: '#f5ebd5' }}>
           <Card.Body>
-            <Card.Title>{bike.name}</Card.Title>
-            <Card.Subtitle className="mb-2 text-muted">Owner: {bike.owner.email}</Card.Subtitle>
-            <Card.Text>{bike.type}</Card.Text>
-            <Card.Text>{bike.size}</Card.Text>
-            <Card.Text>{bike.rate}</Card.Text>
-            <Card.Text>{bike.location}</Card.Text>
-            <LoanForm
-              user={user}
-              loanInfo={loanInfo}
-              handleChange={handleChange}
-              handleSubmit={handleSubmit}
-            />
+            <div className="row">
+              <div className="mr-auto" style={{ display: 'inline', marginleft: '30px' }}>
+                <Card.Title>{bike.name}</Card.Title>
+                <Card.Subtitle className="mb-2 text-muted">Owner: {bike.owner.email}</Card.Subtitle>
+                <Card.Text>{bike.type}</Card.Text>
+                <Card.Text>Size {bike.size}</Card.Text>
+                <Card.Text>{bike.location}</Card.Text>
+                <Card.Text>${bike.rate}/day</Card.Text>
+              </div>
+              <LoanForm
+                user={user}
+                loanInfo={loanInfo}
+                handleChange={handleChange}
+                handleSubmit={handleSubmit}
+              />
+            </div>
           </Card.Body>
         </Card>
       </div>

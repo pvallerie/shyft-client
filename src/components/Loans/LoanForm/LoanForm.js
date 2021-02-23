@@ -7,8 +7,8 @@ const LoanForm = props => {
   // const [createdId, setCreatedId] = useState(null)
 
   return (
-    <div className="loan-form">
-      <Form onSubmit={handleSubmit} className="ml-auto" style={{ display: 'inline' }}>
+    <div className="loan-form ml-auto" style={{ display: 'inline', marginRight: '20px' }}>
+      <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formBasicPickUpDate">
           <Form.Label>Pickup Date</Form.Label>
           <Form.Control
