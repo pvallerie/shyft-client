@@ -34,7 +34,9 @@ const IndexUserLoans = props => {
 
   if (loansLoaded === true && userLoans.length === 0) {
     loansJsx = (
-      <div>You have not rented any bikes yet! Click <a href={'#/index-all-bikes'}>here</a> to check some out.</div>
+      <Card className='content-bg loan-cards' style={{ border: '1px solid #cbcbcb', margin: '10px', padding: '10px', width: '100%', marginTop: '10px' }}>
+        <Card.Text style={{ display: 'flex', alignSelf: 'center' }}>You have not rented any bikes yet! Click <a href={'#/index-all-bikes'} style={{ color: '#c43d16', marginLeft: '3px', marginRight: '3px' }}> here </a> to check some out.</Card.Text>
+      </Card>
     )
   } else {
     loansJsx = userLoans.map(loan => (
