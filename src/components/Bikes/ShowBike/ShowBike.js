@@ -98,6 +98,10 @@ const ShowBike = props => {
       }))
   }
 
+  const handleCloseModal = () => {
+    setShowBikeFormModal(false)
+  }
+
   let bikeJsx
 
   if (user.id === bike.owner.id) {
@@ -185,6 +189,9 @@ const ShowBike = props => {
           user={user}
           bike={bike}
           id={bike.id}
+          showBikeFormModal={showBikeFormModal}
+          setShowBikeFormModal={setShowBikeFormModal}
+          handleCloseModal={handleCloseModal}
           msgAlert={msgAlert}
         />
         <div>{bikeJsx}</div>

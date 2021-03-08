@@ -8,30 +8,39 @@ import Modal from 'react-bootstrap/Modal'
 import '../../../index.scss'
 
 const BikeForm = props => {
-  const { handleSubmit, handleChange } = props
-  const [showBikeFormModal, setShowBikeFormModal] = useState(true)
-  const [backToUserBikesIndex, setBackToUserBikesIndex] = useState(false)
+  const { handleSubmit, handleChange, bike, showBikeFormModal, setShowBikeFormModal, handleCloseModal, formTitle } = props
+  // const [showBikeFormModal, setShowBikeFormModal] = useState(true)
+  const [backToPrevPage, setBackToPrevPage] = useState(false)
 
-  const handleCloseModal = () => {
+  const swapShowBikeFormModalToFalse = () => {
     setShowBikeFormModal(false)
-    setBackToUserBikesIndex(true)
   }
 
-  if (backToUserBikesIndex) {
-    return (
-      <Redirect to={'/index-user-bikes'} />
-    )
+  if (backToPrevPage) {
+    if (formTitle === 'Add Bike') {
+      return (
+        <Redirect to={'/index-user-bikes'} />
+      )
+    } else {
+      return (
+        <Redirect to={`/bikes/${bike.id}`} />
+      )
+    }
   }
 
   return (
     <Modal
       show={showBikeFormModal}
-      onHide={handleCloseModal}
+      onHide={() => {
+        setBackToPrevPage(true)
+        swapShowBikeFormModalToFalse()
+      }}
       backdrop="static"
       keyboard={false}
+      style={{ borderRadiusBottom: 'calc(0.25rem - 1px)' }}
     >
       <Modal.Header style={{ color: '$primary', backgroundColor: '$primary' }} closeButton>
-        <Modal.Title>Add a Bike</Modal.Title>
+        <Modal.Title>{formTitle}</Modal.Title>
       </Modal.Header>
       <Modal.Body style={{ backgroundColor: '#f3e9d2' }}>
         <Form onSubmit={handleSubmit}>
