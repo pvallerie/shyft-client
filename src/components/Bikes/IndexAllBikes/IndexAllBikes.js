@@ -52,7 +52,7 @@ const IndexAllBikes = props => {
   ))
 
   return (
-    <div className='row' style={{ justifyContent: 'center' }}>{bikesJsx}</div>
+    <div className='row' style={{ justifyContent: 'center' }}>{bikesJsx.reverse()}</div>
   )
 }
 

@@ -5,7 +5,7 @@ import BikeForm from '../BikeForm/BikeForm'
 import { createBike } from '../../../api/bikes'
 
 const CreateBike = props => {
-  const { user, msgAlert } = props
+  const { user, msgAlert, showBikeFormModal, setShowBikeFormModal } = props
   const [bikeInfo, setBikeInfo] = useState({
     name: '',
     type: '',
@@ -59,6 +59,9 @@ const CreateBike = props => {
         bikeInfo={bikeInfo}
         handleChange={handleChange}
         handleSubmit={handleSubmit}
+        showBikeFormModal={showBikeFormModal}
+        setShowBikeFormModal={setShowBikeFormModal}
+        formTitle="Add Bike"
       />
     </div>
   )

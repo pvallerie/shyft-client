@@ -5,7 +5,7 @@ import BikeForm from '../BikeForm/BikeForm'
 import { updateBike } from '../../../api/bikes'
 
 const UpdateBike = props => {
-  const { user, id, msgAlert, bike } = props
+  const { user, id, msgAlert, bike, showBikeFormModal, setShowBikeFormModal, handleCloseModal } = props
   const [bikeInfo, setBikeInfo] = useState({
     name: bike.name,
     type: bike.type,
@@ -53,6 +53,11 @@ const UpdateBike = props => {
         bikeInfo={bikeInfo}
         handleChange={handleChange}
         handleSubmit={handleSubmit}
+        bike={bike}
+        showBikeFormModal={showBikeFormModal}
+        setShowBikeFormModal={setShowBikeFormModal}
+        handleCloseModal={handleCloseModal}
+        formTitle="Update Bike"
       />
     </div>
   )

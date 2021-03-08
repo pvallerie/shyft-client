@@ -37,7 +37,7 @@ const IndexUserBikes = props => {
   }, [])
 
   const bikesJsx = userBikes.map(bike => (
-    <Card key={bike.id} className='content-bg col-5 bike-cards' style={{ border: '1px solid #cbcbcb', margin: '10px', padding: '10px', width: '100%', marginTop: '10px' }}>
+    <Card key={bike.id} className='content-bg col-5 bike-cards' style={{ border: '1px solid #cbcbcb', borderRadius: 'calc(0.25rem - 1px)', margin: '10px', padding: '10px', width: '100%', marginTop: '10px' }}>
       <Card.Body style={{ padding: '0' }}>
         <div style={{ height: '250px', objectFit: 'cover' }}>
           <Card.Img variant="top" src={bike.image} style={{ borderRadius: 'calc(0.25rem - 1px)' }} />
@@ -64,6 +64,8 @@ const IndexUserBikes = props => {
         <CreateBike
           user={user}
           msgAlert={msgAlert}
+          showBikeFormModal={showBikeFormModal}
+          setShowBikeFormModal={setShowBikeFormModal}
         />
         <Button
           variant="primary"
@@ -73,7 +75,7 @@ const IndexUserBikes = props => {
         >
             Add Bike
         </Button>
-        <div className='row' style={{ justifyContent: 'center' }}>{bikesJsx}</div>
+        <div className='row' style={{ justifyContent: 'center' }}>{bikesJsx.reverse()}</div>
       </Fragment>
     )
   }
@@ -88,7 +90,7 @@ const IndexUserBikes = props => {
       >
           Add Bike
       </Button>
-      <div className='row' style={{ justifyContent: 'center' }}>{bikesJsx}</div>
+      <div className='row' style={{ justifyContent: 'center' }}>{bikesJsx.reverse()}</div>
     </Fragment>
   )
 }
